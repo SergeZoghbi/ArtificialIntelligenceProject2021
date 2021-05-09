@@ -9,8 +9,11 @@ def create_footer():
     open_button = Button(footer, text='Choose your images', command=on_click_open_button)
     open_button.grid(row=1, column=0)
 
+    recognize_button = Button(footer, text='Recognize')
+    recognize_button.grid(row=1, column=1)
+
     exit_button = Button(footer, text='Exit', command=root.quit)
-    exit_button.grid(row=1, column=1)
+    exit_button.grid(row=1, column=2)
 
     footer.pack(fill='both', side='bottom')
 
@@ -44,7 +47,7 @@ def open_file_browse():
     # Tuple FileTypes only allowing images
     filetypes = (("Image File", '.png'), ("Image File", '.jpg'), ("Image File", '.jpeg'))
     # Opening File browser
-    filenames = fd.askopenfilenames(title='Choose your images', initialdir='/home/sergezoghbi/Pictures',
+    filenames = fd.askopenfilenames(title='Choose your images', initialdir='/',
                                     filetypes=filetypes)
     # This will return a list of files paths
     return filenames
@@ -85,7 +88,7 @@ root = Tk()
 root.title('Geometric Shapes Recognition - Project AI 2021')
 
 # Set Window icon.
-img = PhotoImage(file='icon.png')
+img = PhotoImage(file='assets/imgs/icon.png')
 root.tk.call('wm', 'iconphoto', root._w, img)
 
 # Set Window size.
