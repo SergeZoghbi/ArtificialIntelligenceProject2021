@@ -7,7 +7,6 @@ class Main:
     def __init__(self):
         self.start_gui(self)
 
-
     def start_gui(self, environment):
         root = Tk()
         GeometricShapesRecognitionUi(root)

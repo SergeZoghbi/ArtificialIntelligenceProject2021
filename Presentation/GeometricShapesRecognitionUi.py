@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog as fd
 from PIL import Image, ImageTk
 from Helpers.ImageHelper import resize_image
+from Logic.ShapesRecognition import shapes_recognition
 
 
 class GeometricShapesRecognitionUi:
@@ -33,13 +34,18 @@ class GeometricShapesRecognitionUi:
                              command=lambda: self.on_click_open_button(cTableContainer, content))
         open_button.grid(row=1, column=0)
 
-        recognize_button = Button(footer, text='Recognize')
+        recognize_button = Button(footer, text='Recognize', command=self.recognize_images)
         recognize_button.grid(row=1, column=1)
 
         exit_button = Button(footer, text='Exit', command=master.quit)
         exit_button.grid(row=1, column=2)
 
         footer.pack(fill='both', side='bottom')
+
+    def recognize_images(self):
+        for x, y in zip(self.__filesPaths__, self.__shapesLabel__):
+            w = Label(y, text=shapes_recognition(x))
+            w.pack()
 
     def update_scroll_region(self, cTableContainer, content):
         cTableContainer.update_idletasks()
@@ -59,7 +65,7 @@ class GeometricShapesRecognitionUi:
         # Tuple FileTypes only allowing images
         filetypes = (("Image File", '.png'), ("Image File", '.jpg'), ("Image File", '.jpeg'))
         # Opening File browser
-        filenames = fd.askopenfilenames(title='Choose your images', initialdir='/',
+        filenames = fd.askopenfilenames(title='Choose your images', initialdir='/home/sergezoghbi/',
                                         filetypes=filetypes)
         # This will return a list of files paths
         return filenames
@@ -92,4 +98,3 @@ class GeometricShapesRecognitionUi:
             j = j + 1
             count = count + 1
         self.update_scroll_region(cTableContainer, content)
-
