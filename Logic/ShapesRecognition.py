@@ -1,11 +1,8 @@
 import cv2
 
 
-def is_circle(img):
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    gray = cv2.medianBlur(gray, 5)
-
+def is_circle(gray):
+    gray = cv2.medianBlur(gray, 15)
     rows = gray.shape[0]
     circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows / 8,
                                param1=100, param2=30,
@@ -29,7 +26,7 @@ def shapes_recognition(image_path):
 
     # using a findContours() function
     contours, _ = cv2.findContours(
-        threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     i = 0
     result = ''
     # list for storing names of shapes
@@ -46,7 +43,6 @@ def shapes_recognition(image_path):
             contour, 0.01 * cv2.arcLength(contour, True), True)
 
         lenApprox = len(approx)
-        # putting shape name at center of each shape
 
         if lenApprox == 3:
             return 'Triangle'
@@ -65,5 +61,5 @@ def shapes_recognition(image_path):
         elif lenApprox == 6:
             return 'Hexagon'
 
-        elif is_circle(img):
+        elif is_circle(gray):
             return 'Circle'
