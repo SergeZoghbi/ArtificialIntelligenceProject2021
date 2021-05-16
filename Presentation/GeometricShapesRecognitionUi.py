@@ -43,8 +43,9 @@ class GeometricShapesRecognitionUi:
         footer.pack(fill='both', side='bottom')
 
     def recognize_images(self):
-        for x, y in zip(self.__filesPaths__, self.__shapesLabel__):
-            w = Label(y, text=shapes_recognition(x))
+        for path, label in zip(self.__filesPaths__, self.__shapesLabel__):
+            shape = shapes_recognition(path)
+            w = Label(label, text=shape)
             w.pack()
 
     def update_scroll_region(self, cTableContainer, content):
@@ -65,7 +66,8 @@ class GeometricShapesRecognitionUi:
         # Tuple FileTypes only allowing images
         filetypes = (("Image File", '.png'), ("Image File", '.jpg'), ("Image File", '.jpeg'))
         # Opening File browser
-        filenames = fd.askopenfilenames(title='Choose your images', initialdir='/home/sergezoghbi/',
+        filenames = fd.askopenfilenames(title='Choose your images',
+                                        initialdir='/home/sergezoghbi/Universite/Semester 6/Lab Artificial Intellegence/GeometricShapesRecognationGUI/Data',
                                         filetypes=filetypes)
         # This will return a list of files paths
         return filenames
